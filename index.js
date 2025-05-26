@@ -1,44 +1,32 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = process.env.PORT || 3000;
+// index.js
+const express = require("express");
+const cors = require("cors");
 
+const app = express();
 app.use(cors());
 
-let keluaranHariIni = null;
-let lastGeneratedDate = '';
-
-function getTodayStr() {
-  const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  return `${yyyy}-${mm}-${dd}`;
+function random4Digits() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
-function generateAngka() {
-  return String(Math.floor(1000 + Math.random() * 9000));
-}
-
-function getKeluaranHariIni() {
-  const today = getTodayStr();
-  if (today !== lastGeneratedDate) {
-    keluaranHariIni = {
-      tanggal: today,
-      singapore: generateAngka(),
-      hongkong: generateAngka(),
-      sydney: generateAngka()
-    };
-    lastGeneratedDate = today;
-  }
-  return keluaranHariIni;
-}
-
-app.get('/api/keluaran', (req, res) => {
-  const result = getKeluaranHariIni();
-  res.json(result);
+app.get("/api/keluaran", (req, res) => {
+  const keluaran = {
+    tanggal: new Date().toISOString().slice(0, 10),
+    singapore: random4Digits(),
+    hongkong: random4Digits(),
+    sydney: random4Digits(),
+    cambodia: random4Digits(),
+    taiwan: random4Digits(),
+    china: random4Digits(),
+    japan: random4Digits(),
+    korea: random4Digits(),
+    macau: random4Digits(),
+    toto4d: random4Digits(),
+  };
+  res.json(keluaran);
 });
 
-app.listen(port, () => {
-  console.log(`API Togel berjalan di http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Togel API running on port ${PORT}`);
 });
