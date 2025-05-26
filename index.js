@@ -40,5 +40,5 @@ app.get('/api/keluaran', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`API Togel jalan di http://localhost:${port}`);
+  console.log(`API Togel berjalan di http://localhost:${port}`);
 });
